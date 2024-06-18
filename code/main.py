@@ -78,7 +78,7 @@ def start_playing():
 
 window = tk.Tk()
 #window.geometry("300x300")
-window.title("ChessBot by Stanislas Heili")
+window.title("ChessBot")
 
 label_titre = tk.Label(text="Welcome on my chessbot, hope you will have fun with it",anchor="e", wraplength = 300)#\nThis bot can not work on a game that already started")
 label_titre.grid(column = 0,row = 0)

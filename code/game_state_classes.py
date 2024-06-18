@@ -1,12 +1,19 @@
 import chess #This is used to deal with the advancement in the game
 import chess.uci #This is used to transform uci notations: for instance the uci "e2e4" corresponds to the san : "1. e4"
 import numpy as np
+import os
+
 from board_basics import *
 import chessboard_detection
 import pyautogui
 import cv2 #OpenCV
 import mss #Used to get superfast screenshots
 import time #Used to time the executions
+
+current_dir = os.path.dirname(__file__)
+engine_path = os.path.abspath(
+    os.path.join(current_dir, "..", "stockfish-windows-x86-64-avx2.exe")
+)
 
 
 class Board_position:
@@ -27,7 +34,7 @@ class Game_state:
         self.expected_move_to_detect = "" #This variable stores the move we should see next, if we don't see the right one in the next iteration, we wait and try again. This solves the slow transition problem: for instance, starting with e2e4, the screenshot can happen when the pawn is on e3, that is a possible position. We always have to double check that the move is done.
         self.previous_chessboard_image = [] #Storing the chessboard image from previous iteration
         self.executed_moves = [] #Store the move detected on san format
-        self.engine = chess.uci.popen_engine("stockfish")#The engine used is stockfish. It requires to have the command stockfish working on the shell
+        self.engine = chess.uci.popen_engine(engine_path) #The engine used is stockfish. It requires to have the command stockfish working on the shell
         self.board = chess.Board() #This object comes from the "chess" package, the moves are stored inside it (and it has other cool features such as showing all the "legal moves")
         self.board_position_on_screen = []
         self.sct = mss.mss()
